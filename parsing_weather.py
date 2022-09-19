@@ -6,7 +6,7 @@ import os
 
 load_dotenv()
 
-def weather_parsing():  
+def weather():  
     weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?"     # url for requesting data
     service_key = os.environ.get('SERVICE_KEY')         # get key from dotenv
     
@@ -68,10 +68,3 @@ def weather_parsing():
                 rain = 1                            #rain
 
     return 0
-
-while True:
-	print("hello")
-	# Multi Thread are maked 
-	#Thread1 detect the weight on the loadCell 
-	#Thread2, Thread2 bring the wheather Data every 3 hours
-
