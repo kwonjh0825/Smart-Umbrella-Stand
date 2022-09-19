@@ -1,3 +1,5 @@
+import math 
+import time
 import requests
 import datetime
 from datetime import date, datetime, timedelta
@@ -5,6 +7,28 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
+
+global rain 						   # bring "current raing?" every three hours, yes => 1
+global temperature 				       # bring temperature every three hours	
+
+global up_down                         # up and down
+global blower_peltier_on_off           # 1 when it on
+global umbrella_inside_container 
+
+global used_umbrella                   # used umbrella => 1, unused umbrella => 0
+global umbrella_out_time 
+global umbrella_in_time
+
+rain = 0
+temperature = 0
+up_down = 0
+blower_peltier_on_off = 0
+umbrella_inside_container = 0
+used_umbrella = 0
+umbrella_out_time = 0
+umbrella_in_time = 0
+
+
 
 def weather_parsing():  
     weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?"     # url for requesting data
@@ -66,12 +90,63 @@ def weather_parsing():
                 rain = 0                            #clear
             else:
                 rain = 1                            #rain
-
     return 0
 
+
+
+def loadCellDetect():
+    '''
+    if weight >= WEIGHT:
+		umbrella_out_time = time.time()
+	else:
+		umbrella_in_time = time.time()
+    '''
+		
+def liftUpDown_blowerPeltierOnOff():
+	global rain 	
+	global temperature 
+
+	global up_down                    
+	global blower_peltier_on_off      
+	global umbrella_inside_container 
+	
+	global used_umbrella 
+	global umbrella_out_time 
+	global umbrella_in_time 
+	
+	# The loadCell detects the weight of the umbrella in real time
+	# update variable "used_umbrella"
+	
+	if rain == 0:
+		if up_down == 1:
+			up_down = 0  
+		if blower_peltier_on_off == 1:
+			blower_peltier_on_off = 0
+	elif umbrella_inside_container == 1:
+		if up_down == 0:
+			up_down = 1
+		if blower_peltier_on_off == 1:
+			blower_peltier_on_off = 0
+	elif used_umbrella == 1:
+		if up_down == 1:
+			up_down = 0
+		if blower_peltier_on_off == 0:
+			blower_peltier_on_off = 1
+	else:
+		if up_down == 0:
+			up_down = 1
+		if blower_peltier_on_off == 1:
+			blower_peltier_on_off = 0
+		
+			
 while True:
-	print("hello")
-	# Multi Thread are maked 
-	#Thread1 detect the weight on the loadCell 
-	#Thread2, Thread2 bring the wheather Data every 3 hours
+	time.sleep(0.1) # delay
+	if rain == 0:
+		if up_down == 1:
+			up_down = 0  
+		if blower_peltier_on_off == 1:
+			blower_peltier_on_off = 0
+		
+	else:
+		loadCellDetect()
 
