@@ -8,6 +8,8 @@ import os
 
 load_dotenv()
 
+WEIGHT = 100
+
 global rain 						   # bring "current raing?" every three hours, yes => 1
 global temperature 				       # bring temperature every three hours	
 
@@ -16,8 +18,8 @@ global blower_peltier_on_off           # 1 when it on
 global umbrella_inside_container 
 
 global used_umbrella                   # used umbrella => 1, unused umbrella => 0
-global umbrella_out_time 
-global umbrella_in_time
+global umbrella_start_time 
+global umbrella_end_time
 
 rain = 0
 temperature = 0
@@ -25,8 +27,8 @@ up_down = 0
 blower_peltier_on_off = 0
 umbrella_inside_container = 0
 used_umbrella = 0
-umbrella_out_time = 0
-umbrella_in_time = 0
+umbrella_start_time = 0
+umbrella_end_time = 0
 
 
 
@@ -92,15 +94,39 @@ def weather_parsing():
                 rain = 1                            #rain
     return 0
 
-
+flags = 0
 
 def loadCellDetect():
     '''
-    if weight >= WEIGHT:
-		umbrella_out_time = time.time()
-	else:
-		umbrella_in_time = time.time()
+    reading the weight on the loadCell
     '''
+    
+    if weight >= WEIGHT:
+	    if (umbrella_end_time - umbrella_start_time) <= 30.0: 
+            umbrella_start_time = time.time()
+            umbrella_inside_container = 1
+            used_umbrella = 0
+        
+        elif (umbrella_end_time - umbrella_start_time) >= 30.0:
+            umbrella_inside_container = 0
+            used_umbrella = 1
+			 
+			''' 60 sec -> loadCel Function not working
+			liftUpDown_blowerPeltierOnOff()
+			'''
+			
+			umbrella_inside_container = 1
+			used_umbrella = 0
+			umbrella_start_time = 0
+			umbrella_end_time = 0
+		
+	else:
+		umbrella_end_time = time.time()
+		umbrella_inside_container = 1
+		used_umbrella = 0
+		
+	liftUpDown_blowerPeltierOnOff()
+				
 		
 def liftUpDown_blowerPeltierOnOff():
 	global rain 	
@@ -111,8 +137,8 @@ def liftUpDown_blowerPeltierOnOff():
 	global umbrella_inside_container 
 	
 	global used_umbrella 
-	global umbrella_out_time 
-	global umbrella_in_time 
+	global umbrella_start_time 
+	global umbrella_end_time 
 	
 	# The loadCell detects the weight of the umbrella in real time
 	# update variable "used_umbrella"

@@ -18,10 +18,11 @@ def ON():
 @app.route('/OFF')
 def OFF():
 	#os.system('taskkill.exe /f /im main.py')
-	os.system('killall -9 main.exe')
+	#os.system('killall -9 main.exe')
 	
 	print("exit")
 	return redirect(url_for('home'))
+	
 	
 if __name__ == '__main__':
 	print("server  Start")
