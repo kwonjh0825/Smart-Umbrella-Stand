@@ -1,12 +1,12 @@
 import math 
 import time
 import requests
-import datetime
-from datetime import date, datetime, timedelta
-from dotenv import load_dotenv
-import os
+# import datetime
+# from datetime import date, datetime, timedelta
+# from dotenv import load_dotenv
+# import os
 
-load_dotenv()
+# load_dotenv()
 
 WEIGHT = 100
 
@@ -31,7 +31,7 @@ umbrella_start_time = 0
 umbrella_end_time = 0
 
 
-
+'''
 def weather_parsing():  
     weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?"     # url for requesting data
     service_key = os.environ.get('SERVICE_KEY')         # get key from dotenv
@@ -93,23 +93,21 @@ def weather_parsing():
             else:
                 rain = 1                            #rain
     return 0
-
+'''
 flags = 0
 
 def loadCellDetect():
-    '''
-    reading the weight on the loadCell
-    '''
+    # reading the weight on the loadCell
+    
     
     if weight >= WEIGHT:
-	    if (umbrella_end_time - umbrella_start_time) <= 30.0: 
-            umbrella_start_time = time.time()
-            umbrella_inside_container = 1
-            used_umbrella = 0
-        
-        elif (umbrella_end_time - umbrella_start_time) >= 30.0:
-            umbrella_inside_container = 0
-            used_umbrella = 1
+		if umbrella_end_time - umbrella_start_time <= 30.0: 
+			umbrella_start_time = time.time()
+			umbrella_inside_container = 1
+			used_umbrella = 0
+		elif umbrella_end_time - umbrella_start_time >= 30.0:
+			umbrella_inside_container = 0
+			used_umbrella = 1
 			 
 			''' 60 sec -> loadCel Function not working
 			liftUpDown_blowerPeltierOnOff()
