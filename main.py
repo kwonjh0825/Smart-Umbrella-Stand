@@ -1,6 +1,6 @@
 import math 
 import time
-import requests
+# import requests
 # import datetime
 # from datetime import date, datetime, timedelta
 # from dotenv import load_dotenv
@@ -20,6 +20,9 @@ global umbrella_inside_container
 global used_umbrella                   # used umbrella => 1, unused umbrella => 0
 global umbrella_start_time 
 global umbrella_end_time
+
+global weight
+weight = 102
 
 rain = 0
 temperature = 0
@@ -94,13 +97,49 @@ def weather_parsing():
                 rain = 1                            #rain
     return 0
 '''
-flags = 0
 
+def dryOn():
+	global rain 	
+	global temperature 
+
+	global up_down                    
+	global blower_peltier_on_off      
+	global umbrella_inside_container 
+	
+	global used_umbrella 
+	global umbrella_start_time 
+	global umbrella_end_time 
+	
+	global weight
+	
+	max_time_end  = time.time() + (10*1)
+	while  True:
+		time.sleep(0.1) # delay
+		print("dry On...")
+		if  time.time() > max_time_end:
+			break
+	umbrella_inside_container = 1
+	used_umbrella = 0
+	umbrella_start_time = 0
+	umbrella_end_time = 0
+			
 def loadCellDetect():
-    # reading the weight on the loadCell
+	# reading the weight on the loadCell
     
+	global rain 	
+	global temperature 
+
+	global up_down                    
+	global blower_peltier_on_off      
+	global umbrella_inside_container 
+	
+	global used_umbrella 
+	global umbrella_start_time 
+	global umbrella_end_time 
+	
+	global weight
     
-    if weight >= WEIGHT:
+	if weight >= WEIGHT:
 		if umbrella_end_time - umbrella_start_time <= 30.0: 
 			umbrella_start_time = time.time()
 			umbrella_inside_container = 1
@@ -108,15 +147,7 @@ def loadCellDetect():
 		elif umbrella_end_time - umbrella_start_time >= 30.0:
 			umbrella_inside_container = 0
 			used_umbrella = 1
-			 
-			''' 60 sec -> loadCel Function not working
-			liftUpDown_blowerPeltierOnOff()
-			'''
-			
-			umbrella_inside_container = 1
-			used_umbrella = 0
-			umbrella_start_time = 0
-			umbrella_end_time = 0
+
 		
 	else:
 		umbrella_end_time = time.time()
@@ -138,6 +169,8 @@ def liftUpDown_blowerPeltierOnOff():
 	global umbrella_start_time 
 	global umbrella_end_time 
 	
+	global weight
+	
 	# The loadCell detects the weight of the umbrella in real time
 	# update variable "used_umbrella"
 	
@@ -151,11 +184,14 @@ def liftUpDown_blowerPeltierOnOff():
 			up_down = 1
 		if blower_peltier_on_off == 1:
 			blower_peltier_on_off = 0
+			
 	elif used_umbrella == 1:
 		if up_down == 1:
 			up_down = 0
 		if blower_peltier_on_off == 0:
 			blower_peltier_on_off = 1
+		# dryOn()
+			
 	else:
 		if up_down == 0:
 			up_down = 1
@@ -164,6 +200,7 @@ def liftUpDown_blowerPeltierOnOff():
 		
 			
 while True:
+	print("Hello Main")
 	time.sleep(0.1) # delay
 	if rain == 0:
 		if up_down == 1:
