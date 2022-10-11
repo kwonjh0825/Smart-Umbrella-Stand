@@ -1,17 +1,18 @@
-import math 
+import RPi.GPIO as GPIO
+import sys
 import time
-# import requests
-# import datetime
-# from datetime import date, datetime, timedelta
-# from dotenv import load_dotenv
-# import os
+import asyncio
 
-# load_dotenv()
+from weather.weather import weather_parsing 
+from motor.motor import motor
+from peltier.peltier import peltier_fan
+from liquid_sensor.liquid_sensor import liquid_sensor
 
 WEIGHT = 100
 
 global rain 						   # bring "current raing?" every three hours, yes => 1
-global temperature 				       # bring temperature every three hours	
+global temperature 
+global water_height				       # bring temperature every three hours	
 
 global up_down                         # up and down
 global blower_peltier_on_off           # 1 when it on
@@ -22,6 +23,7 @@ global umbrella_start_time
 global umbrella_end_time
 
 global weight
+
 weight = 102
 
 rain = 0
@@ -32,71 +34,6 @@ umbrella_inside_container = 0
 used_umbrella = 0
 umbrella_start_time = 0
 umbrella_end_time = 0
-
-
-'''
-def weather_parsing():  
-    weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?"     # url for requesting data
-    service_key = os.environ.get('SERVICE_KEY')         # get key from dotenv
-    
-    global rain                                         # 0 means clear
-    global temperature
-
-    rain = 0
-    temperature = 0
-
-    today = datetime.today()
-    today_date =  today.strftime("%Y%m%d")              # ex) 20220527
-    base_date = today_date                              # basedate is today
-    yesterday_date = date.today() - timedelta(days=1)   # this is needed when the time is 00:00 ~ 02:10
-    time = datetime.now()
-    
-    # set basetime by clock
-    
-    if  time.hour < 2 or (time.hour == 2 and time.minute <= 10):        # 00:00 ~ 02:10
-        base_date = yesterday_date                                      # base_date, time : yesterday 23:00
-        base_time = "2300"
-    elif time.hour < 5 or (time.hour == 5 and time.minute <= 10):       # 02:11 ~ 05:10
-        base_time = "0200"
-    elif time.hour<8 or (time.hour == 8 and time.minute <= 10):         # 05:11 ~ 08:10
-        base_time = "0500"
-    elif time.hour <= 11 or (time.hour == 11 and time.minute <= 10):    # 08:11 ~ 11:10
-        base_time = "0800"
-    elif time.hour < 14 or (time.hour == 14 and time.minute <= 10):     # 11:11 ~ 14:10
-        base_time = "1100"
-    elif time.hour < 17 or (time.hour == 17 and time.minute <= 10):     # 14:11 ~ 17:10
-        base_time = "1400"
-    elif time.hour < 20 or (time.hour == 20 and time.minute <= 10):     # 17:11 ~ 20:10
-        base_time = "1700" 
-    elif time.hour < 23 or (time.hour == 23 and time.minute <= 10):     # 20:11 ~ 23:10
-        base_time = "2000"
-    else:                                                               # 23:11 ~ 23:59
-        base_time = "2300"
-    
-    # set nx, ny ( daeyeon )
-    nx = "98"
-    ny = "75"
-
-    payload = f"serviceKey={service_key}&dataType=json&base_date={base_date}&" +\
-        f"base_time={base_time}&nx={nx}&ny={ny}"
-
-    res = requests.get(weather_url + payload)                           # request data 
-    items = res.json().get('response').get('body').get('items')         # getting data
-    
-    for item in items['item']:
-        # temperature
-        if item['category'] == 'TMP':
-            temperature = item['fcstValue']
-        
-        # condition
-        if item['category'] == 'PTY':
-            weather_code = item['fcstValue']
-            if weather_code == '0':
-                rain = 0                            #clear
-            else:
-                rain = 1                            #rain
-    return 0
-'''
 
 def dryOn():
 	global rain 	
@@ -112,11 +49,11 @@ def dryOn():
 	
 	global weight
 	
-	max_time_end  = time.time() + (10*1)
-	while  True:
+	max_time_end = time.time() + (10*1)
+	while True:
 		time.sleep(0.1) # delay
 		print("dry On...")
-		if  time.time() > max_time_end:
+		if time.time() > max_time_end:
 			break
 	umbrella_inside_container = 1
 	used_umbrella = 0
@@ -174,40 +111,102 @@ def liftUpDown_blowerPeltierOnOff():
 	# The loadCell detects the weight of the umbrella in real time
 	# update variable "used_umbrella"
 	
-	if rain == 0:
-		if up_down == 1:
-			up_down = 0  
-		if blower_peltier_on_off == 1:
-			blower_peltier_on_off = 0
-	elif umbrella_inside_container == 1:
+	if umbrella_inside_container == 1:
 		if up_down == 0:
 			up_down = 1
+			# motor(1,1,1, up_down)
 		if blower_peltier_on_off == 1:
 			blower_peltier_on_off = 0
+			# pertier_fen(1,1,1, blower_peltier_on_off)
 			
 	elif used_umbrella == 1:
 		if up_down == 1:
 			up_down = 0
+			# motor(1,1,1, up_down)
 		if blower_peltier_on_off == 0:
 			blower_peltier_on_off = 1
+			# pertier_fen(1,1,1, blower_peltier_on_off)
 		# dryOn()
 			
 	else:
 		if up_down == 0:
 			up_down = 1
+			# motor(1,1,1, up_down)
 		if blower_peltier_on_off == 1:
 			blower_peltier_on_off = 0
-		
-			
-while True:
-	print("Hello Main")
-	time.sleep(0.1) # delay
-	if rain == 0:
-		if up_down == 1:
-			up_down = 0  
-		if blower_peltier_on_off == 1:
-			blower_peltier_on_off = 0
-		
-	else:
-		loadCellDetect()
+			# pertier_fen(1,1,1, blower_peltier_on_off)
 
+# weather data reading
+async def loadWeather():
+	global rain
+	global temperature
+	while(1):
+
+		rain, temperature = weather_parsing()
+		await asyncio.sleep(60 * 60 * 3)
+		
+async def loadLiquid():
+	global water_height
+	while(1):
+		water_height = liquid_sensor(23)
+		await asyncio.sleep(3)
+
+async def core():
+	global rain 	
+	global temperature 
+
+	global up_down                    
+	global blower_peltier_on_off      
+	global umbrella_inside_container 
+	
+	global used_umbrella 
+	global umbrella_start_time 
+	global umbrella_end_time 
+	
+	global weight
+    
+
+	while(1):
+		print("Hello Core")
+		if rain == 0:
+			if up_down == 1:
+				up_down = 0  
+				# motor(1,1,1, up_down)
+			if blower_peltier_on_off == 1:
+				blower_peltier_on_off = 0
+				# pertier_fen(1,1,1, blower_peltier_on_off)
+
+		else:
+			loadCellDetect()
+		await asyncio.sleep(2) # delay
+
+
+async def main():
+	global rain 	
+	global temperature
+	global water_height
+
+	global up_down                    
+	global blower_peltier_on_off      
+	global umbrella_inside_container 
+	
+	global used_umbrella 
+	global umbrella_start_time 
+	global umbrella_end_time 
+	
+	global weight
+	
+	weather  = asyncio.create_task(loadWeather())
+	core = asyncio.create_task(core())
+	water_high_measure = asyncio.create_task(liquid_sensor())
+	
+	await asyncio.gather(weather, core, water_high_measure)
+	
+	
+	
+if  __name__ == "__main__":
+	try :
+		asyncio.run(main())
+	except KeyboardInterrupt:
+		GPIO.cleanup()
+		sys.exit(0)
