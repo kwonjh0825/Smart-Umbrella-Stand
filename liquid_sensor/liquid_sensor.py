@@ -6,7 +6,7 @@ def liquid_sensor(sensor):
 
     GPIO.setup(sensor, GPIO.IN)
 
-    sens_high = GPIO.input()
+    sens_high = GPIO.input(sensor)
     if sens_high:
         print("high")
     else:
