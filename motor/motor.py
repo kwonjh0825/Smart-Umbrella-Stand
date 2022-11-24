@@ -12,20 +12,18 @@ def motor (ENA, IN1, IN2, up_down):
         GPIO.output(IN1, False)     # forward
         GPIO.output(IN2, True)    
         GPIO.output(ENA, True)  
-        print("motor going forward")
-        time.sleep(3)            
+        print("motor is up")
+        time.sleep(2)            
 
                 
-        GPIO.output(ENA, False)     # stop
-        time.sleep(1)          
+        GPIO.output(ENA, False)     # stop        
     else:
         GPIO.output(IN1, True)      # backward
         GPIO.output(IN2, False)   
         GPIO.output(ENA, True)
-        print("motor going backward")  
-        time.sleep(10)               
+        print("motor is down")  
+        time.sleep(2)               
                 
-        GPIO.output(ENA, False)     # stop
-        time.sleep(1)              
+        GPIO.output(ENA, False)     # stop             
 
-#motor(17,27,22,1)
+#motor(17,27,22,0)

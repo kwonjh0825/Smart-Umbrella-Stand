@@ -21,7 +21,7 @@ def loadCell(pin1, pin2):
             
     #     print("Bye!")
     #     sys.exit()
-
+    GPIO.setwarnings(False)
     hx = HX711(pin1, pin2) # Pyhsical pin => 15, 13
 
     hx.set_reading_format("MSB", "MSB")
@@ -32,7 +32,7 @@ def loadCell(pin1, pin2):
 
     hx.tare()
 
-    # print("Tare done! Add weight now...")
+    print("Tare done! Add weight now...")
     while(1):
         val = hx.get_weight(5)
     
@@ -41,5 +41,5 @@ def loadCell(pin1, pin2):
         hx.power_down()
         hx.power_up()
         time.sleep(0.1)
-        
-loadCell(12, 25)
+    
+loadCell(6, 13)

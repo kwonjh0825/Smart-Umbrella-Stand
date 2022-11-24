@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset ="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi" />
+		<meta name="apple-mobile-web-app-capable" content="no" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<style>
+			#state4_frmae_div  {
+				position: relative;
+				width: 390px;
+				height: 844px;
+				background: white;
+			}
+			#state4_header {
+				position: absolute;
+				width: 390px;
+				height: 70px;
+				left: 0px;
+				top: 0px;
+				background: #142D57;
+				border-radius: 0px;
+			}
+			
+			#state4_header_img1 {
+				position: absolute;
+				width: 34px;
+				height: 34px;
+				left: 83px;
+				top: 21px;
+			}
+			
+			#state4_header_span {
+				position: absolute;
+				width: 149px;
+				height: 24px;
+				left: 120px;
+				top: 13px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 20px;
+				line-height: 24px;
+				text-align: center;
+				color: #FFFFFF;
+			}
+
+
+			#state4_section_div1 {
+				position: absolute;
+				width: 390px;
+				height: 70px;
+				left: 0px;
+				top: 70px;
+				background: #D9D9D9;
+				border-radius: 0px;
+			}
+			
+			#state4_section_div1_text {
+				position: absolute;
+				width: 155px;
+				height: 30px;
+				left: 117px;
+				top: 19px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 26px;
+				line-height: 31px;
+				text-align: center;
+				color: #000000;
+			}
+			
+			
+			#state4_section_img1 {
+				position: absolute;
+				width: 22px;
+				height: 22px;
+				left: 19px;
+				top: 167px;
+			}
+			
+			#state4_header_span1{
+				position: absolute;
+				width: 94px;
+				height: 38px;
+				left: 48px;
+				top: 161px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 18px;
+				line-height: 17px;
+				text-align: center;
+				color: #000000;
+			}
+			
+			#state4_section_img2 {
+				position: absolute;
+				width: 126px;
+				height: 126px;
+				left: 248px;
+				top: 160px;
+			}
+			
+			#state4_section_text {
+				position: absolute;
+				width: 134px;
+				height: 25px;
+				left:135px;
+				top:270px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 20px;
+				line-height: 24px;
+				/* identical to box height */
+				text-align: center;
+				color: #000000;
+			}
+			
+			#state4_section_img3 {
+				position: absolute;
+				width: 333px;
+				height: 366px;
+				left: 28px;
+				top: 296px;	
+			}
+			
+			#state4_footer {
+				position: absolute;
+				width: 390px;
+				height: 70px;
+				left: 0px;
+				top: 774px;	
+				background: #142D57;
+			}
+			
+			#state4_btn1 {
+				position: absolute;
+				width: 81px;
+				height: 32px;
+				left: 38px;
+				top: 20px;	
+				background: #FFFFFF;
+				border-radius: 8px;
+			}
+			
+			#state4_btn2 {
+				position: absolute;
+				width: 81px;
+				height: 32px;
+				left: 154px;
+				top: 20px;	
+				background: #FFFFFF;
+				border-radius: 8px;
+			}
+			
+			#state4_btn3 {
+				position: absolute;
+				width: 81px;
+				height: 32px;
+				left: 270px;
+				top: 20px;	
+				background: #FFFFFF;
+				border-radius: 8px;
+			}
+			
+		</style>
+	</head>
+	
+	<div id = "state4_frmae_div">
+		<header id="state4_header">
+			<img id = "state4_header_img1" src="{{url_for('static', filename='image/lo.png') }}" alt="location image">
+			<span id="state4_header_span">Busan Namgu Deayun</span>
+		</header>
+			
+		<div id ="state4_section_div1"><span id = "state4_section_div1_text">Rain</span></div>
+		<img id = "state4_section_img1" src="{{url_for('static', filename='image/refresh.png') }}" alt="location image">
+		<span id = "state4_header_span1">2022-11-03<br>PM 04:30</span>
+		<img id = "state4_section_img2" src="{{url_for('static', filename='image/rain.gif') }}" alt = "location image">
+		
+		<span id ="state4_section_text">Be in Use</span>
+		<img id ="state4_section_img3" src = "{{url_for('static', filename ='image/noUmb.png') }}" alt = "noRain image">
+		
+		<footer id = "state4_footer" />
+		<button id ="state4_btn1" type ="button" onclick="window.location.href='http://127.0.0.1:5000/water'"><span id ="state4_btn1_text" style ="font-size: 16px; font-weight: 700;">Water</span></button>
+		<button id ="state4_btn2" type ="button" onclick="window.location.href='http://127.0.0.1:5000/home'"><span id ="state4_btn1_text" style ="font-size: 16px; font-weight: 700;">Home</span></button>
+		<button id ="state4_btn3" type ="button" onclick="window.location.href='http://127.0.0.1:5000/state'"><span id ="state4_btn1_text" style ="font-size: 16px; font-weight: 700;">Refresh</span></button>
+	</div>
+	
+	<script>
+		const date = new Date();
+
+		const year = date.getFullYear();
+		const month = ('0' + (date.getMonth() + 1)).slice(-2);
+		const day = ('0' + date.getDate()).slice(-2);
+		const dateStr = year + '.' + month + '.' + day;
+	
+		const hours = ('0' + date.getHours()).slice(-2);
+		const minutes = ('0' + date.getMinutes()).slice(-2);
+		const seconds = ('0' + date.getSeconds()).slice(-2);
+		const timeStr = hours + ':' + minutes + ':' + seconds;
+		console.log(timeStr);
+		
+		let dateText = document.querySelector('#state4_header_span1');
+		dateText.innerText = dateStr + '\n'+timeStr;
+		
+		
+		/*document.querySelector('#state4_btn3').addEventListener("click", function() {
+			console.log('hello')
+		});*/
+	</script>
+	
+	
+	
+	
+</html>
