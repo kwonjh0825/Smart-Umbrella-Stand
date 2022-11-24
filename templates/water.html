@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset ="utf-8" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi" />
+		<meta name="apple-mobile-web-app-capable" content="no" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel = "stylesheet" href = "css/indexCSS.css" />
+		<style>
+			#water_frmae_div  {
+				position: relative;
+				width: 390px;
+				height: 844px;
+				background: white;
+			}
+			#water_header {
+				position: absolute;
+				width: 390px;
+				height: 70px;
+				left: 0px;
+				top: 0px;
+				background: #142D57;
+				border-radius: 0px;
+			}
+			
+			#water_header_img1 {
+				position: absolute;
+				width: 34px;
+				height: 34px;
+				left: 83px;
+				top: 21px;
+			}
+			
+			#water_header_span {
+				position: absolute;
+				width: 149px;
+				height: 24px;
+				left: 120px;
+				top: 13px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 20px;
+				line-height: 24px;
+				text-align: center;
+				color: #FFFFFF;
+			}
+
+
+			#water_section_div1 {
+				position: absolute;
+				width: 390px;
+				height: 70px;
+				left: 0px;
+				top: 70px;
+				background: #D9D9D9;
+				border-radius: 0px;
+			}
+			
+			#water_section_div1_text {
+				position: absolute;
+				width: 155px;
+				height: 30px;
+				left: 117px;
+				top: 19px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 26px;
+				line-height: 31px;
+				text-align: center;
+				color: #000000;
+			}
+			
+			
+			#water_section_img1 {
+				position: absolute;
+				width: 22px;
+				height: 22px;
+				left: 19px;
+				top: 167px;
+			}
+			
+			#water_header_span1{
+				position: absolute;
+				width: 94px;
+				height: 38px;
+				left: 48px;
+				top: 161px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 18px;
+				line-height: 17px;
+				text-align: center;
+				color: #000000;
+			}
+			
+			#water_section_text {
+				position: absolute;
+				width: 187px;
+				height: 42px;
+				left: 100px;
+				top: 313px;
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-size: 18px;
+				line-height: 22px;
+				text-align: center;
+				color: #000000;
+			}
+			
+			#water_section_img2 {
+				position: absolute;
+				width: 349px;
+				height: 186px;
+				left: 20px;
+				top: 381px;
+			}
+	
+			#water_footer {
+				position: absolute;
+				width: 390px;
+				height: 70px;
+				left: 0px;
+				top: 774px;	
+				background: #142D57;
+			}
+			
+			#water_btn1 {
+				position: absolute;
+				width: 81px;
+				height: 32px;
+				left: 38px;
+				top: 20px;	
+				background: #FFFFFF;
+				border-radius: 8px;
+			}
+			
+			#water_btn2 {
+				position: absolute;
+				width: 81px;
+				height: 32px;
+				left: 154px;
+				top: 20px;	
+				background: #FFFFFF;
+				border-radius: 8px;
+			}
+			
+			#water_btn3 {
+				position: absolute;
+				width: 81px;
+				height: 32px;
+				left: 270px;
+				top: 20px;	
+				background: #FFFFFF;
+				border-radius: 8px;
+			}
+			
+		</style>
+	</head>
+	
+	<div id = "water_frmae_div">
+		<header id="water_header">
+			<img id = "water_header_img1" src="{{url_for('static', filename='image/lo.png') }}" alt="location image">
+			<span id="water_header_span">Busan Namgu Deayun</span>
+		</header>
+			
+		<div id ="water_section_div1"><span id = "water_section_div1_text">Water-State</span></div>
+		<img id = "water_section_img1" src="{{url_for('static', filename='image/refresh.png') }}" alt="location image">
+		<span id = "water_header_span1">2022-11-03<br>PM 04:30</span>
+		
+		<span id ="water_section_text">Height of the water 40%</span>
+		<img id ="water_section_img2" src = "{{url_for('static', filename ='image/water.png') }}" alt = "rain image">
+		
+		
+		<footer id = "water_footer" />
+		<button id ="water_btn1" type ="button" onclick="window.location.href='http://127.0.0.1:5000/state'"><span id ="state1_btn3_text" style ="font-size: 16px; font-weight: 700;">State</span></button>
+		<button id ="water_btn2" type ="button" onclick="window.location.href='http://127.0.0.1:5000/home'"><span id ="state1_btn3_text" style ="font-size: 16px; font-weight: 700;">Home</span></button>
+		<button id ="water_btn3" type ="button" onclick="window.location.href='http://127.0.0.1:5000/state'"><span id ="state1_btn3_text" style ="font-size: 16px; font-weight: 700;">Refresh</span></button>
+	</div>
+
+	
+	
+	
+</html>
