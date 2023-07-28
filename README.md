@@ -17,12 +17,19 @@
 
 2. 앱 화면
 <img width="308" alt="Screenshot 2023-07-28 at 4 46 17 PM" src="https://github.com/kwonjh0825/TIL-Today-I-Learned/assets/63788871/e4e1659e-e6f0-47d2-8c49-5d9f8c034851">
+<br>
   - 비가 오지 않는 상태
+<br>
 <img width="305" alt="Screenshot 2023-07-28 at 4 47 06 PM" src="https://github.com/kwonjh0825/TIL-Today-I-Learned/assets/63788871/e9d9c719-225a-4de8-8311-51e8cfabf888">
+<br>
   - 비가 오고 있는 상태
+<br>
 <img width="309" alt="Screenshot 2023-07-28 at 4 45 06 PM" src="https://github.com/kwonjh0825/TIL-Today-I-Learned/assets/63788871/9fa5dc40-00a5-4f62-b03c-e820738f7728">
+<br>
   - 우산 건조 중
+<br>
 <img width="307" alt="Screenshot 2023-07-28 at 4 48 06 PM" src="https://github.com/kwonjh0825/TIL-Today-I-Learned/assets/63788871/d44fb6a5-4dfe-4074-935e-0692dad8abe6">
+<br>
   - 우산꽂이 내 빗물받이 수위 확인
 
  
